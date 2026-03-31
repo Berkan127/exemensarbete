@@ -1,6 +1,6 @@
-# Mikrotjänstsystem (Prompt 2)
+# Mikrotjänstsystem
 
-Det här repo:t innehåller **Del 1** av Prompt 2: grundstruktur och arkitektur för ett mikrotjänstbaserat system enligt specifikationen.
+Det här repo:t innehåller ** Bas uppladningen ** av  grundstruktur och arkitektur för ett mikrotjänstbaserat system enligt specifikationen.
 
 ## Tjänster (separata kodbaser)
 
