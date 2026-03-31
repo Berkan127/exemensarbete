@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prompt 2 - Mikrotjanstbaserat system</title>
+  <style>
+    :root {
+      --bg: #f7f8fa;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --accent: #2563eb;
+      --border: #e5e7eb;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 24px 16px 40px;
+    }
+
+    .header {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 1.7rem;
+    }
+
+    h2 {
+      margin: 0 0 8px;
+      font-size: 1.2rem;
+      color: var(--accent);
+    }
+
+    p {
+      margin: 6px 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+    }
+
+    ul {
+      margin: 8px 0 0;
+      padding-left: 18px;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #eff6ff;
+      color: #1d4ed8;
+      border: 1px solid #bfdbfe;
+      border-radius: 999px;
+      padding: 3px 10px;
+      margin: 2px 6px 2px 0;
+      font-size: 0.85rem;
+    }
+
+    .footer {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <section class="header">
+      <h1>Prompt 2 - Mikrotjanstbaserat system</h1>
+      <p>En enkel hemsida som sammanfattar kraven och utvecklingsstegen for GitHub-uppladdning.</p>
+      <p>
+        <span class="tag">Java 17</span>
+        <span class="tag">Spring Boot</span>
+        <span class="tag">PostgreSQL</span>
+        <span class="tag">Docker</span>
+        <span class="tag">API Gateway</span>
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Syfte</h2>
+      <p>Jämföra monolit och mikrotjanster med fokus pa skalbarhet, distribution, komplexitet och beteende under hog belastning.</p>
+    </section>
+
+    <section class="card">
+      <h2>Arkitektur</h2>
+      <ul>
+        <li>Tre mikrotjanster: <strong>User Service</strong>, <strong>Product Service</strong>, <strong>Order Service</strong>.</li>
+        <li>Varje tjanst har egen kodbas, egen PostgreSQL-databas och separat deployment.</li>
+        <li>API Gateway ar enda entry point och routar trafik till ratt tjanst.</li>
+        <li>Endast synkron REST-kommunikation (ingen message broker).</li>
+      </ul>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <h2>Del 1 - Struktur</h2>
+        <ul>
+          <li>Skapa User, Product, Order och API Gateway.</li>
+          <li>Konfigurera beroenden och Docker-grund.</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h2>Del 2 - User Service</h2>
+        <ul>
+          <li>Datamodell + egen databas.</li>
+          <li>POST /users</li>
+          <li>GET /users/{id}</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h2>Del 3 - Product Service</h2>
+        <ul>
+          <li>Datamodell + egen databas.</li>
+          <li>GET /products, POST /products, GET /products/{id}</li>
+          <li>Forbered lagerhantering.</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h2>Del 4 - Order Service</h2>
+        <ul>
+          <li>Datamodell + egen databas.</li>
+          <li>POST /orders, GET /orders/{id}, GET /orders/user/{userId}</li>
+          <li>Affarslogik i Order Service.</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h2>Del 5 - Kommunikation</h2>
+        <ul>
+          <li>Order Service anropar User och Product via REST.</li>
+          <li>Hamta user, hamta produkter, kontrollera/uppdatera lager.</li>
+          <li>Berakna totalpris och hantera externa fel.</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h2>Del 6 - API Gateway</h2>
+        <ul>
+          <li>Konfigurera routing till alla tjanster.</li>
+          <li>Testa hela flodet via gatewayn.</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h2>Del 7 - Logging/Felhantering</h2>
+        <ul>
+          <li>Logga interna handelser och inkommande anrop.</li>
+          <li>Logga inter-service anrop.</li>
+          <li>Hantera timeout och nere-tjanst med tydliga fel.</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h2>Del 8 - Docker lokalt</h2>
+        <ul>
+          <li>Dockerisera alla tjanster och databaser.</li>
+          <li>Kora lokalt via Docker Compose.</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h2>Del 9 - AWS</h2>
+        <ul>
+          <li>Deploya varje tjanst separat via ECS eller EC2.</li>
+          <li>Verifiera distribuerad drift.</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h2>Del 10 - Skalning/Prestanda</h2>
+        <ul>
+          <li>Skala endast Order Service.</li>
+          <li>Mat latency, throughput, CPU, memory och inter-service latency.</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h2>Del 11 - Jamforelse med monolit</h2>
+        <ul>
+          <li>Analysera skillnader i skalbarhet, deployment-komplexitet och hoglastbeteende.</li>
+        </ul>
+      </article>
+    </section>
+
+    <p class="footer">Tips: Gor en commit per del (Del 1 till Del 11) for tydlig GitHub-historik.</p>
+  </main>
+</body>
+</html>
