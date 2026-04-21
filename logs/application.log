@@ -1,0 +1,51 @@
+2026-04-14 23:26:37.093 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2026-04-14 23:26:37.124 [main] INFO  c.e.u.UserServiceApplication - Starting UserServiceApplication using Java 23.0.1 with PID 11244 (C:\Users\GTSA - Infinity\IdeaProjects\exarbete-microservices\user-service\target\classes started by Berkan in C:\Users\GTSA - Infinity\IdeaProjects\exarbete-microservices)
+2026-04-14 23:26:37.125 [main] DEBUG c.e.u.UserServiceApplication - Running with Spring Boot v3.3.10, Spring v6.1.18
+2026-04-14 23:26:37.125 [main] INFO  c.e.u.UserServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2026-04-14 23:26:38.035 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-14 23:26:38.071 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 31 ms. Found 1 JPA repository interface.
+2026-04-14 23:26:38.642 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
+2026-04-14 23:26:38.652 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
+2026-04-14 23:26:38.654 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-14 23:26:38.655 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.39]
+2026-04-14 23:26:38.698 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-04-14 23:26:38.698 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1539 ms
+2026-04-14 23:26:38.911 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-04-14 23:26:38.967 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.5.3.Final
+2026-04-14 23:26:38.997 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-04-14 23:26:39.243 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-14 23:26:39.267 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-14 23:26:39.414 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@21688427
+2026-04-14 23:26:39.415 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-14 23:26:40.150 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-14 23:26:40.201 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-14 23:26:40.470 [main] DEBUG c.e.u.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-04-14 23:26:40.471 [main] DEBUG o.s.w.f.ServerHttpObservationFilter - Filter 'webMvcObservationFilter' configured for use
+2026-04-14 23:26:40.518 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-04-14 23:26:40.681 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 8 mappings in 'requestMappingHandlerMapping'
+2026-04-14 23:26:40.774 [main] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2026-04-14 23:26:40.899 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2026-04-14 23:26:41.051 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2026-04-14 23:26:41.079 [main] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2026-04-14 23:26:41.305 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
+2026-04-14 23:26:41.317 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path '/'
+2026-04-14 23:26:41.325 [main] INFO  c.e.u.UserServiceApplication - Started UserServiceApplication in 4.674 seconds (process running for 7.562)
+2026-04-14 23:26:41.732 [RMI TCP Connection(2)-192.168.1.225] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-14 23:26:41.732 [RMI TCP Connection(2)-192.168.1.225] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-04-14 23:26:41.732 [RMI TCP Connection(2)-192.168.1.225] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2026-04-14 23:26:41.732 [RMI TCP Connection(2)-192.168.1.225] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2026-04-14 23:26:41.732 [RMI TCP Connection(2)-192.168.1.225] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+2026-04-14 23:26:41.733 [RMI TCP Connection(2)-192.168.1.225] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@22cf6c9c
+2026-04-14 23:26:41.733 [RMI TCP Connection(2)-192.168.1.225] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@4ff3af97
+2026-04-14 23:26:41.733 [RMI TCP Connection(2)-192.168.1.225] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2026-04-14 23:26:41.733 [RMI TCP Connection(2)-192.168.1.225] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2026-04-14 23:27:39.094 [http-nio-8081-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/actuator/health", parameters={}
+2026-04-14 23:27:39.109 [http-nio-8081-exec-1] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/octet-stream" to []
+2026-04-14 23:27:39.123 [http-nio-8081-exec-1] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/vnd.spring-boot.actuator.v3+json;q=0.8', given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7] and supported [application/vnd.spring-boot.actuator.v3+json, application/vnd.spring-boot.actuator.v2+json, application/json]
+2026-04-14 23:27:39.126 [http-nio-8081-exec-1] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [org.springframework.boot.actuate.health.SystemHealth@61da7aff]
+2026-04-14 23:27:39.143 [http-nio-8081-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-14 23:27:39.204 [http-nio-8081-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - "ERROR" dispatch for GET "/error", parameters={}
+2026-04-14 23:27:39.205 [http-nio-8081-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2026-04-14 23:27:39.208 [http-nio-8081-exec-2] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json;q=0.8', given [image/avif, image/webp, image/apng, image/svg+xml, image/*, */*;q=0.8] and supported [application/json, application/*+json]
+2026-04-14 23:27:39.208 [http-nio-8081-exec-2] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{timestamp=Tue Apr 14 23:27:39 CEST 2026, status=403, error=Forbidden, path=/favicon.ico}]
+2026-04-14 23:27:39.216 [http-nio-8081-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Exiting from "ERROR" dispatch, status 403

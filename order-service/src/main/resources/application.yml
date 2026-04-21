@@ -11,5 +11,20 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
 server:
   port: 8083
+
+logging:
+  level:
+    com.example.orderservice: DEBUG
+    org.springframework.web: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    mappings:
+      enabled: true
