@@ -22,6 +22,9 @@ public class Product {
     @Column(nullable = false)
     private Integer stockQuantity;
 
+    @Column(nullable = false)
+    private String category;
+
     public Product() {}
 
     public Product(String name, String description, BigDecimal price, Integer stockQuantity) {
@@ -29,6 +32,14 @@ public class Product {
         this.description = description;
         this.price = price;
         this.stockQuantity = stockQuantity;
+    }
+
+    public Product(String name, String description, BigDecimal price, Integer stockQuantity, String category) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.stockQuantity = stockQuantity;
+        this.category = category;
     }
 
     public Long getId() {
@@ -69,5 +80,13 @@ public class Product {
 
     public void setStockQuantity(Integer stockQuantity) {
         this.stockQuantity = stockQuantity;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

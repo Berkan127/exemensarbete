@@ -2,7 +2,7 @@ spring:
   application:
     name: user-service
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/userdb}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://user-db:5432/userdb}
     username: ${SPRING_DATASOURCE_USERNAME:user}
     password: ${SPRING_DATASOURCE_PASSWORD:user}
   jpa:
@@ -12,5 +12,11 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
 server:
   port: 8081
+
+logging:
+  level:
+    com.example.userservice: INFO
+    org.springframework.web: INFO

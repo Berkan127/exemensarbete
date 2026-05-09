@@ -8,15 +8,17 @@ public class ProductDto {
     private String description;
     private BigDecimal price;
     private Integer stockQuantity;
+    private String category;
 
     public ProductDto() {}
 
-    public ProductDto(Long id, String name, String description, BigDecimal price, Integer stockQuantity) {
+    public ProductDto(Long id, String name, String description, BigDecimal price, Integer stockQuantity, String category) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.stockQuantity = stockQuantity;
+        this.category = category;
     }
 
     public Long getId() {
@@ -57,5 +59,13 @@ public class ProductDto {
 
     public void setStockQuantity(Integer stockQuantity) {
         this.stockQuantity = stockQuantity;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

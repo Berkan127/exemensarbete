@@ -8,21 +8,12 @@
             </encoder>
         </appender>
 
-        <!-- JSON Appender for structured logging -->
-        <appender name="JSON_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-            <encoder class="net.logstash.logback.encoder.LogstashEncoder">
-                <customFields>
-                    {"service_name":"${spring.application.name:-unknown}","service_version":"${app.version:-1.0.0}"}
-                </customFields>
-            </encoder>
-        </appender>
-
+        
         <!-- File Appender -->
         <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
             <file>logs/${spring.application.name:-application}.log</file>
             <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-                <fileNamePattern>logs/${spring.application.name:-application}.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
-                <maxFileSize>10MB</maxFileSize>
+                <fileNamePattern>logs/${spring.application.name:-application}.%d{yyyy-MM-dd}.log</fileNamePattern>
                 <maxHistory>30</maxHistory>
                 <totalSizeCap>1GB</totalSizeCap>
             </rollingPolicy>
@@ -40,8 +31,7 @@
                 <onMismatch>DENY</onMismatch>
             </filter>
             <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-                <fileNamePattern>logs/${spring.application.name:-application}-error.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
-                <maxFileSize>10MB</maxFileSize>
+                <fileNamePattern>logs/${spring.application.name:-application}-error.%d{yyyy-MM-dd}.log</fileNamePattern>
                 <maxHistory>30</maxHistory>
                 <totalSizeCap>500MB</totalSizeCap>
             </rollingPolicy>
@@ -52,7 +42,6 @@
 
         <!-- Application Loggers -->
         <logger name="com.example" level="DEBUG" additivity="false">
-            <appender-ref ref="JSON_CONSOLE"/>
             <appender-ref ref="FILE"/>
             <appender-ref ref="ERROR_FILE"/>
         </logger>

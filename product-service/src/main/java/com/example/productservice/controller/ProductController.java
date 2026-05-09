@@ -76,4 +76,51 @@ public class ProductController {
         
         return ResponseEntity.ok(hasStock);
     }
+    
+    @PutMapping("/{id}")
+    public ResponseEntity<ProductDto> updateProduct(@PathVariable Long id, @RequestBody ProductDto productDto) {
+        logger.info("Received request to update product with ID: {}", id);
+        
+        // Skapa en CreateProductRequest från ProductDto för att matcha befintlig metod
+        CreateProductRequest request = new CreateProductRequest();
+        request.setName(productDto.getName());
+        request.setDescription(productDto.getDescription());
+        request.setPrice(productDto.getPrice());
+        request.setStockQuantity(productDto.getStockQuantity());
+        
+        ProductDto updatedProduct = productService.updateStock(id, productDto.getStockQuantity() - request.getStockQuantity());
+        logger.info("Product updated successfully for ID: {}", id);
+        
+        return ResponseEntity.ok(updatedProduct);
+    }
+    
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
+        logger.info("Received request to delete product with ID: {}", id);
+        
+        productService.deleteProduct(id);
+        logger.info("Product deleted successfully for ID: {}", id);
+        
+        return ResponseEntity.noContent().build();
+    }
+    
+    @GetMapping("/category/{category}")
+    public ResponseEntity<List<ProductDto>> getProductsByCategory(@PathVariable String category) {
+        logger.info("Received request to get products by category: {}", category);
+        
+        List<ProductDto> products = productService.getProductsByCategory(category);
+        logger.info("Returning {} products for category: {}", products.size(), category);
+        
+        return ResponseEntity.ok(products);
+    }
+    
+    @GetMapping("/search")
+    public ResponseEntity<List<ProductDto>> searchProducts(@RequestParam String name) {
+        logger.info("Received request to search products with name: {}", name);
+        
+        List<ProductDto> products = productService.searchProducts(name);
+        logger.info("Returning {} products for search: {}", products.size(), name);
+        
+        return ResponseEntity.ok(products);
+    }
 }

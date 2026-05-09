@@ -4,74 +4,19 @@ spring:
   cloud:
     gateway:
       routes:
-        # User Service (Auth) routes - no authentication required
-        - id: user-service-auth
-          uri: http://localhost:8081
-          predicates:
-            - Path=/api/auth/**
-          filters:
-            - StripPrefix=1
-            - RateLimitingFilter
-            
-        # Product Service routes - authentication required
+        # Product Service routes
         - id: product-service
           uri: http://localhost:8082
           predicates:
             - Path=/api/products/**
           filters:
             - StripPrefix=1
-            - JwtAuthenticationFilter
-            - RateLimitingFilter
-            - ApiKeyAuthenticationFilter
-        
-        # Order Service routes - authentication required
-        - id: order-service
-          uri: http://localhost:8083
-          predicates:
-            - Path=/api/orders/**
-          filters:
-            - StripPrefix=1
-            - JwtAuthenticationFilter
-            - RateLimitingFilter
-            - ApiKeyAuthenticationFilter
-            
-        # User Service routes - authentication required
-        - id: user-service
-          uri: http://localhost:8081
-          predicates:
-            - Path=/api/users/**
-          filters:
-            - StripPrefix=1
-            - JwtAuthenticationFilter
-            - RateLimitingFilter
-            - ApiKeyAuthenticationFilter
-            
-      # Global CORS configuration
-      globalcors:
-        cors-configurations:
-          '[/**]':
-            allowedOrigins: "http://localhost:3000,http://localhost:3001"
-            allowedMethods: "GET,POST,PUT,DELETE,OPTIONS"
-            allowedHeaders: "*"
-            allowCredentials: true
 
 server:
   port: 8080
-
-jwt:
-  secret: mySecretKey123456789012345678901234567890
 
 logging:
   level:
     org.springframework.cloud.gateway: DEBUG
     org.springframework.web: DEBUG
-    com.example.apigateway.security: DEBUG
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-  endpoint:
-    gateway:
-      enabled: true
+    reactor.netty: DEBUG

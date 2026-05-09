@@ -2,29 +2,18 @@ spring:
   application:
     name: order-service
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:55435/orderdb}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://order-db:5432/orderdb}
     username: ${SPRING_DATASOURCE_USERNAME:order}
     password: ${SPRING_DATASOURCE_PASSWORD:order}
   jpa:
     hibernate:
       ddl-auto: update
-    properties:
-      hibernate:
-        format_sql: true
+    show-sql: true
 
 server:
   port: 8083
 
 logging:
   level:
-    com.example.orderservice: DEBUG
-    org.springframework.web: DEBUG
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-  endpoint:
-    mappings:
-      enabled: true
+    com.example.orderservice: INFO
+    org.springframework.web: INFO

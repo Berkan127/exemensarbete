@@ -3,7 +3,8 @@ package com.example.userservice.user;
 import com.example.userservice.dto.RegisterRequest;
 import com.example.userservice.dto.UserDto;
 import com.example.userservice.user.dto.UserResponse;
-import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,11 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional
@@ -30,10 +29,9 @@ public class UserService {
                     throw new UserAlreadyExistsException("Email already exists: " + request.getEmail());
                 });
 
-        String encodedPassword = passwordEncoder.encode(request.getPassword());
         User user = new User(
                 request.getUsername(),
-                encodedPassword,
+                request.getPassword(),
                 request.getEmail(),
                 request.getFirstName(),
                 request.getLastName(),
@@ -56,6 +54,13 @@ public class UserService {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UserNotFoundException("User not found: " + username));
         return toResponse(user);
+    }
+
+    @Transactional(readOnly = true)
+    public List<UserResponse> getAllUsers() {
+        return userRepository.findAll().stream()
+                .map(this::toResponse)
+                .toList();
     }
 
     @Transactional(readOnly = true)

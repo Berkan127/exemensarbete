@@ -1,4 +1,4 @@
-global:
+-*global:
   smtp_smarthost: 'localhost:587'
   smtp_from: 'alerts@example.com'
 
