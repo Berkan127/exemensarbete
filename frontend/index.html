@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mikrotjänst Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .service-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+        
+        .service-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .service-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .user-icon { background: #4CAF50; color: white; }
+        .product-icon { background: #2196F3; color: white; }
+        .order-icon { background: #FF9800; color: white; }
+        .gateway-icon { background: #9C27B0; color: white; }
+        
+        .service-title h3 {
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .service-title p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .endpoints {
+            margin-top: 20px;
+        }
+        
+        .endpoint {
+            background: #f8f9fa;
+            border-left: 4px solid #007bff;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        
+        .endpoint.health {
+            border-left-color: #28a745;
+        }
+        
+        .endpoint.api {
+            border-left-color: #007bff;
+        }
+        
+        .endpoint a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .endpoint a:hover {
+            text-decoration: underline;
+        }
+        
+        .status {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        
+        .status.checking {
+            background: #ffc107;
+            color: #856404;
+        }
+        
+        .status.online {
+            background: #28a745;
+            color: white;
+        }
+        
+        .status.offline {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .database-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 40px;
+        }
+        
+        .database-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .database-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            border: 2px solid #e9ecef;
+        }
+        
+        .database-card h4 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .database-card p {
+            color: #666;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        
+        .refresh-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin: 20px auto;
+            display: block;
+        }
+        
+        .refresh-btn:hover {
+            background: #0056b3;
+        }
+        
+        .endpoint button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            width: 100%;
+        }
+        
+        .endpoint button:hover {
+            background: #0056b3;
+        }
+        
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            max-height: 150px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            border-left: 3px solid #28a745;
+            display: none;
+        }
+        
+        .result.success {
+            border-left-color: #28a745;
+            background: #d4edda;
+        }
+        
+        .result.error {
+            border-left-color: #dc3545;
+            background: #f8d7da;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Mikrotjänst Dashboard</h1>
+            <p>Förenklad mikrotjänst-arkitektur för examensarbete</p>
+        </div>
+        
+        <button class="refresh-btn" onclick="checkAllServices()">🔄 Kontrollera alla tjänster</button>
+        
+        <div class="services-grid">
+            <!-- User Service -->
+            <div class="service-card">
+                <div class="service-header">
+                    <div class="service-icon user-icon">👤</div>
+                    <div class="service-title">
+                        <h3>User Service</h3>
+                        <p>Hanterar användare</p>
+                    </div>
+                </div>
+                <div class="endpoints">
+                    <div class="endpoint health">
+                        <a href="http://localhost:8081/actuator/health" target="_blank">Health Check</a>
+                        <span class="status checking" id="user-health">Kontrollerar...</span>
+                    </div>
+                    <div class="endpoint api">
+                        <a href="http://localhost:8081/users" target="_blank">GET /users</a>
+                    </div>
+                    <div class="endpoint api">
+                        <button onclick="testEndpoint('http://localhost:8081/users', 'user-result')">Testa GET /users</button>
+                    </div>
+                    <div id="user-result" class="result"></div>
+                </div>
+            </div>
+            
+            <!-- Product Service -->
+            <div class="service-card">
+                <div class="service-header">
+                    <div class="service-icon product-icon">📦</div>
+                    <div class="service-title">
+                        <h3>Product Service</h3>
+                        <p>Hanterar produkter</p>
+                    </div>
+                </div>
+                <div class="endpoints">
+                    <div class="endpoint health">
+                        <a href="http://localhost:8082/actuator/health" target="_blank">Health Check</a>
+                        <span class="status checking" id="product-health">Kontrollerar...</span>
+                    </div>
+                    <div class="endpoint api">
+                        <a href="http://localhost:8082/products" target="_blank">GET /products</a>
+                    </div>
+                    <div class="endpoint api">
+                        <button onclick="testEndpoint('http://localhost:8082/products', 'product-result')">Testa GET /products</button>
+                    </div>
+                    <div id="product-result" class="result"></div>
+                </div>
+            </div>
+            
+            <!-- Order Service -->
+            <div class="service-card">
+                <div class="service-header">
+                    <div class="service-icon order-icon">🛒</div>
+                    <div class="service-title">
+                        <h3>Order Service</h3>
+                        <p>Hanterar ordrar</p>
+                    </div>
+                </div>
+                <div class="endpoints">
+                    <div class="endpoint health">
+                        <a href="http://localhost:8083/actuator/health" target="_blank">Health Check</a>
+                        <span class="status checking" id="order-health">Kontrollerar...</span>
+                    </div>
+                    <div class="endpoint api">
+                        <a href="http://localhost:8083/orders" target="_blank">GET /orders</a>
+                    </div>
+                    <div class="endpoint api">
+                        <button onclick="testEndpoint('http://localhost:8083/orders', 'order-result')">Testa GET /orders</button>
+                    </div>
+                    <div id="order-result" class="result"></div>
+                </div>
+            </div>
+            
+            <!-- API Gateway -->
+            <div class="service-card">
+                <div class="service-header">
+                    <div class="service-icon gateway-icon">🌐</div>
+                    <div class="service-title">
+                        <h3>API Gateway</h3>
+                        <p>Ingångspunkt för alla tjänster</p>
+                    </div>
+                </div>
+                <div class="endpoints">
+                    <div class="endpoint health">
+                        <a href="http://localhost:8080/actuator/health" target="_blank">Health Check</a>
+                        <span class="status checking" id="gateway-health">Kontrollerar...</span>
+                    </div>
+                    <div class="endpoint api">
+                        <a href="http://localhost:8080/api/products/actuator/health" target="_blank">Gateway → Products</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Database Section -->
+        <div class="database-section">
+            <h2>🗄️ Databaser</h2>
+            <div class="database-grid">
+                <div class="database-card">
+                    <h4>User Database</h4>
+                    <p>localhost:5432</p>
+                    <p>PostgreSQL</p>
+                </div>
+                <div class="database-card">
+                    <h4>Product Database</h4>
+                    <p>localhost:5433</p>
+                    <p>PostgreSQL</p>
+                </div>
+                <div class="database-card">
+                    <h4>Order Database</h4>
+                    <p>localhost:55435</p>
+                    <p>PostgreSQL</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        async function checkServiceHealth(url, elementId) {
+            const element = document.getElementById(elementId);
+            element.className = 'status checking';
+            element.textContent = 'Kontrollerar...';
+            
+            try {
+                const response = await fetch(url);
+                if (response.ok) {
+                    element.className = 'status online';
+                    element.textContent = 'Online';
+                } else {
+                    element.className = 'status offline';
+                    element.textContent = 'Offline';
+                }
+            } catch (error) {
+                element.className = 'status offline';
+                element.textContent = 'Offline';
+            }
+        }
+        
+        function checkAllServices() {
+            checkServiceHealth('http://localhost:8081/actuator/health', 'user-health');
+            checkServiceHealth('http://localhost:8082/actuator/health', 'product-health');
+            checkServiceHealth('http://localhost:8083/actuator/health', 'order-health');
+            checkServiceHealth('http://localhost:8080/actuator/health', 'gateway-health');
+        }
+        
+        // Kontrollera automatiskt när sidan laddas
+        window.onload = function() {
+            setTimeout(checkAllServices, 1000);
+        };
+        
+        // Kontrollera var 30:e sekund
+        setInterval(checkAllServices, 30000);
+        
+        // Funktion för att testa API endpoints
+        async function testEndpoint(url, resultId) {
+            const resultElement = document.getElementById(resultId);
+            resultElement.style.display = 'block';
+            resultElement.className = 'result';
+            resultElement.textContent = 'Hämtar data...';
+            
+            try {
+                const response = await fetch(url);
+                const data = await response.text();
+                
+                if (response.ok) {
+                    resultElement.className = 'result success';
+                    
+                    // Försök att parsa som JSON
+                    try {
+                        const jsonData = JSON.parse(data);
+                        resultElement.textContent = JSON.stringify(jsonData, null, 2);
+                    } catch (e) {
+                        resultElement.textContent = data;
+                    }
+                } else {
+                    resultElement.className = 'result error';
+                    resultElement.textContent = `Fel ${response.status}: ${data}`;
+                }
+            } catch (error) {
+                resultElement.className = 'result error';
+                resultElement.textContent = `Kunde inte ansluta: ${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html>
