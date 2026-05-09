@@ -1,22 +1,48 @@
+server:
+  port: 8080
+
 spring:
   application:
     name: api-gateway
+
   cloud:
     gateway:
       routes:
+        # User Service routes
+        - id: user-service
+          uri: http://user-service:8081
+          predicates:
+            - Path=/api/users/**
+          filters:
+            - StripPrefix=1
+
         # Product Service routes
         - id: product-service
-          uri: http://localhost:8082
+          uri: http://product-service:8082
           predicates:
             - Path=/api/products/**
           filters:
             - StripPrefix=1
 
-server:
-  port: 8080
+        # Order Service routes
+        - id: order-service
+          uri: http://order-service:8083
+          predicates:
+            - Path=/api/orders/**
+          filters:
+            - StripPrefix=1
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
 
 logging:
   level:
     org.springframework.cloud.gateway: DEBUG
     org.springframework.web: DEBUG
-    reactor.netty: DEBUG
+    reactor.netty: INFO
